@@ -12,11 +12,20 @@ jobs:
         python-version: ['3.9']
     name: Python ${{ matrix.python-version }} sample
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Check out
+        uses: actions/checkout@v2
+
+      # Sets up Python version 3.9
+      - name: Set up Python 3.9
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python-version }}
-          architecture: x64
-      - run: pip install poetry
-      - run: cd demo; poetry install; poetry shell; pytest --cov=demo tests
+          # Semantic version range syntax or exact version of a Python version
+          python-version: '3.9'
+          # Optional - x64 or x86 architecture, defaults to x64
+          architecture: 'x64'
+      # Installs dependencies
+      - name: Install dependencies
+        run: |
+          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
+      - run: cd demo; poetry shell; poetry install; poetry run pytest --cov-report html --cov=demo ./tests/
