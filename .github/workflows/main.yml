@@ -1,6 +1,9 @@
 on:
-  workflow_call:
-
+  push:
+    branches:
+      - main
+      - dev
+      - 'releases/**'
 jobs:
   build:
     runs-on: ubuntu-latest
