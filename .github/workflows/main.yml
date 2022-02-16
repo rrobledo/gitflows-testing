@@ -19,4 +19,5 @@ jobs:
           python-version: ${{ matrix.python-version }}
           architecture: x64
       - run: pip install poetry
+      - run: pip install pytest
       - run: cd demo; poetry install; python -m pytest --cov=demo tests
