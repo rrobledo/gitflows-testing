@@ -1,5 +1,6 @@
 __pycache__/
 __pypackages__/
+.pyc
 build/
 dist/
 .pytest_cache/
@@ -11,4 +12,4 @@ dist/
 .venv
 .idea
 venv
-
+coverage.xml
