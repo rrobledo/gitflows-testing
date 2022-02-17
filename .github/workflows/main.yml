@@ -43,12 +43,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd demo
           poetry install
 
       - name: Run Test and Coverage
         run: |
-          cd demo
           poetry run pytest --cov-report xml --cov=demo ./tests/
 
 #      - name: Produce the coverage report
