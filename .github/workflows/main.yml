@@ -18,8 +18,7 @@ jobs:
         image: postgres
         # Provide the password for postgres
         env:
-          POSTGRES_USER: tripper
-          POSTGRES_PASSWORD: password
+          POSTGRES_PASSWORD: root
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
@@ -55,8 +54,19 @@ jobs:
         shell: bash
         run: poetry config virtualenvs.in-project true
 
-      - name: View poetry version
-        run: poetry --version
+      - name: Installing postgresql client
+        run: |
+          apt update
+          apt install -y postgresql-client
+          pg_restore --version
+
+      - name: Restore database
+        run: |
+          export PGPASSWORD=root
+          psql -h localhost -U postgres -p 5432 -c 'create database tripper'
+          psql -h localhost -U postgres -p 5432 -c 'CREATE USER tripper WITH PASSWORD tripper'
+          psql -h localhost -U postgres -p 5432 -c 'grant all privileges on database tripper to tripper'
+          pg_restore -h localhost -U postgres -p 5432 -d tripper ./tripper-v2.0.dump
 
       - name: Install dependencies
         run: |
