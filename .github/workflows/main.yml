@@ -63,10 +63,10 @@ jobs:
       - name: Restore database
         run: |
           export PGPASSWORD=root
-          psql -h postgres -U postgres -p 5432 -c 'create database tripper'
-          psql -h postgres -U postgres -p 5432 -c 'CREATE USER tripper WITH PASSWORD tripper'
-          psql -h postgres -U postgres -p 5432 -c 'grant all privileges on database tripper to tripper'
-          pg_restore -h postgres -U postgres -p 5432 -d tripper ./tripper-v2.0.dump
+          psql -h 127.0.0.1 -U postgres -p 5432 -c 'create database tripper'
+          psql -h 127.0.0.1 -U postgres -p 5432 -c 'CREATE USER tripper WITH PASSWORD tripper'
+          psql -h 127.0.0.1 -U postgres -p 5432 -c 'grant all privileges on database tripper to tripper'
+          pg_restore -h 127.0.0.1 -U postgres -p 5432 -d tripper ./tripper-v2.0.dump
 
       - name: Install dependencies
         run: |
